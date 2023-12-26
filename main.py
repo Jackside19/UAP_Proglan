@@ -1,47 +1,54 @@
 import tkinter as tk
 
-def convert():
-    try:
-        decimal_value = int(entry_decimal.get())
-        binary_result.set(bin(decimal_value)[2:])
-        octal_result.set(oct(decimal_value)[2:])
-        hex_result.set(hex(decimal_value)[2:])
-    except ValueError:
-        binary_result.set("Invalid Input")
-        octal_result.set("Invalid Input")
-        hex_result.set("Invalid Input")
+class NumberConverterApp:
+    def __init__(self, master):
+        self.master = master
+        master.title("Kalkulator Konversi Bilangan")
 
-window = tk.Tk()
-window.title("Kalkulator Konversi Bilangan")
+        self.label_decimal = tk.Label(master, text="Decimal:")
+        self.entry_decimal = tk.Entry(master)
+        self.convert_button = tk.Button(master, text="Convert", command=self.convert)
+        self.import_button = tk.Button(master, text="Import")
 
-label_decimal = tk.Label(window, text="Decimal:")
-entry_decimal = tk.Entry(window)
-convert_button = tk.Button(window, text="Convert",command=convert)
-import_button = tk.Button(window, text="Import")
+        self.binary_label = tk.Label(master, text="Binary:")
+        self.binary_result = tk.StringVar()
+        self.binary_result_label = tk.Label(master, textvariable=self.binary_result)
 
+        self.octal_label = tk.Label(master, text="Octal:")
+        self.octal_result = tk.StringVar()
+        self.octal_result_label = tk.Label(master, textvariable=self.octal_result)
 
-binary_label = tk.Label(window, text="Binary:")
-binary_result = tk.StringVar()
-binary_result_label = tk.Label(window, textvariable=binary_result)
+        self.hex_label = tk.Label(master, text="Hexadecimal:")
+        self.hex_result = tk.StringVar()
+        self.hex_result_label = tk.Label(master, textvariable=self.hex_result)
 
-octal_label = tk.Label(window, text="Octal:")
-octal_result = tk.StringVar()
-octal_result_label = tk.Label(window, textvariable=octal_result)
+        self.layout_widgets()
 
-hex_label = tk.Label(window, text="Hexadecimal:")
-hex_result = tk.StringVar()
-hex_result_label = tk.Label(window, textvariable=hex_result)
+    def layout_widgets(self):
+        self.label_decimal.grid(row=0, column=0, pady=10)
+        self.entry_decimal.grid(row=0, column=1, pady=10)
+        self.convert_button.grid(row=1, column=0, columnspan=2, pady=10)
+        self.import_button.grid(row=1, column=0, columnspan=1, pady=10)
 
-label_decimal.grid(row=0, column=0, pady=10)
-entry_decimal.grid(row=0, column=1, pady=10)
-convert_button.grid(row=1, column=0, columnspan=2, pady=10)
-import_button.grid(row=1, column=0, columnspan=1, pady=10)
+        self.binary_label.grid(row=2, column=0, pady=5)
+        self.binary_result_label.grid(row=2, column=1, pady=5)
+        self.octal_label.grid(row=3, column=0, pady=5)
+        self.octal_result_label.grid(row=3, column=1, pady=5)
+        self.hex_label.grid(row=4, column=0, pady=5)
+        self.hex_result_label.grid(row=4, column=1, pady=5)
 
-binary_label.grid(row=2, column=0, pady=5)
-binary_result_label.grid(row=2, column=1, pady=5)
-octal_label.grid(row=3, column=0, pady=5)
-octal_result_label.grid(row=3, column=1, pady=5)
-hex_label.grid(row=4, column=0, pady=5)
-hex_result_label.grid(row=4, column=1, pady=5)
+    def convert(self):
+        try:
+            decimal_value = int(self.entry_decimal.get())
+            self.binary_result.set(bin(decimal_value)[2:])
+            self.octal_result.set(oct(decimal_value)[2:])
+            self.hex_result.set(hex(decimal_value)[2:])
+        except ValueError:
+            self.binary_result.set("Invalid Input")
+            self.octal_result.set("Invalid Input")
+            self.hex_result.set("Invalid Input")
 
-window.mainloop()
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = NumberConverterApp(root)
+    root.mainloop()
