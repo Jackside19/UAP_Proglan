@@ -1,4 +1,5 @@
 import tkinter as tk
+import csv
 
 class NumberConverterApp:
     def __init__(self, master):
@@ -8,7 +9,7 @@ class NumberConverterApp:
         self.label_decimal = tk.Label(master, text="Decimal:")
         self.entry_decimal = tk.Entry(master)
         self.convert_button = tk.Button(master, text="Convert", command=self.convert)
-        self.import_button = tk.Button(master, text="Import")
+        self.import_button = tk.Button(master, text="Import",command=self.save_results_to_txt)
 
         self.binary_label = tk.Label(master, text="Binary:")
         self.binary_result = tk.StringVar()
@@ -47,6 +48,25 @@ class NumberConverterApp:
             self.binary_result.set("Invalid Input")
             self.octal_result.set("Invalid Input")
             self.hex_result.set("Invalid Input")
+    
+    def save_results_to_txt(self):
+        try:
+            decimal_value = int(self.entry_decimal.get())
+            binary_value = bin(decimal_value)[2:]
+            octal_value = oct(decimal_value)[2:]
+            hex_value = hex(decimal_value)[2:]
+
+            with open("hasil.txt", 'a') as txtfile:
+                txtfile.write(f"Decimal: {decimal_value}\n")
+                txtfile.write(f"---------------\n")
+                txtfile.write(f"Binary: {binary_value}\n")
+                txtfile.write(f"Octal: {octal_value}\n")
+                txtfile.write(f"Hexadecimal: {hex_value}\n\n")
+
+            print("SAVE SUCCES TO 'hasil.txt'")
+        except ValueError:
+            print("Invalid Input")
+            
 
 if __name__ == "__main__":
     root = tk.Tk()

@@ -1,0 +1,18 @@
+Decimal: 12
+---------------
+Binary: 1100
+Octal: 14
+Hexadecimal: c
+
+Decimal: 9
+---------------
+Binary: 1001
+Octal: 11
+Hexadecimal: 9
+
+Decimal: 6
+---------------
+Binary: 110
+Octal: 6
+Hexadecimal: 6
+
